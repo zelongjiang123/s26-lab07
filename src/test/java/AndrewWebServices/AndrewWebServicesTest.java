@@ -2,6 +2,8 @@ package AndrewWebServices;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +18,9 @@ public class AndrewWebServicesTest {
     public void setUp() {
         // You need to use some mock objects here
         database = new InMemoryDatabase(); // We probably don't want to access our real database...
-        recommender = new StubRecommender();
-        promoService = new PromoService();
+        recommender = mock(RecSys.class);
+        when(recommender.getRecommendation("Scotty")).thenReturn("Animal House");
+        promoService = mock(PromoService.class);
 
         andrewWebService = new AndrewWebServices(database, recommender, promoService);
     }
